@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title> Change Status</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${request}">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Request Details</h4>
+                <p class="card-text" th:text="'Request id is ' + ${request.id}"></p>
+                <p class="card-text" th:text="'Request status is ' + ${request.status}"></p>
+                <p class="card-text" th:text="'Request Type: ' + ${request.typeOfRequest}"></p>
+
+                <div th:switch="${request.typeOfRequest.name()}">
+                    <div th:case="'PropertyApproval'">
+                        <p><strong>Address:</strong> <span th:text="${request.propertyProfile.address}"></span></p>
+                        <p><strong>Type of property:</strong> <span th:text="${request.typeOfProperty}"></span></p>
+                        <p><strong>Square meters:</strong> <span th:text="${request.propertyProfile.square_meters}"></span></p>
+                        <p><strong>Owner:</strong> <span th:text="${request.user.firstname} + ' ' + ${request.user.lastname}"></span></p>
+                    </div>
+                    <div th:case="'OwnerApproval'">
+                        <p><strong>Owner Name:</strong> <span th:text="${request.user.firstname} + ' ' + ${request.user.lastname}"></span></p>
+                    </div>
+                    <div th:case="'RenterApproval'">
+                        <p><strong>Renter Name:</strong> <span th:text="${request.user.firstname} + ' ' + ${request.user.lastname}"></span></p>
+                    </div>
+                </div>
+            </div>
+            <form th:action="@{/request/change-status/{cid}(cid=${request.getId()})}" method="post" th:object="${request}">
+                <div>
+                    <label for="status"> Status: </label>
+                    <select id="status" name="status" th:field="*{status}">
+                        <option th:each="type : ${status.values()}" th:value="${type}" th:text="${type}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

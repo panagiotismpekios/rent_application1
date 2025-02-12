@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Requests</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(verificationRequests)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Type Of Request</th>
+                <th> Status </th>
+                <th> User </th>
+                <th> Change status </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="verificationRequest : ${verificationRequests}">
+                <td th:text="${verificationRequest.typeOfRequest}"></td>
+                <td th:text="${verificationRequest.status}"></td>
+                <td th:text="${verificationRequest.user.username}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'request/change-status/' + ${verificationRequest.id}}"> Edit </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(verificationRequests)}">
+        No Requests found!
+    </div>
+</div>
+</body>
+</html>

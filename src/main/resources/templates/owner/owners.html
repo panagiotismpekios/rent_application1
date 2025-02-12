@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Owners</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(owners)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> First name</th>
+                <th> Last name</th>
+                <th> Email </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="owner: ${owners}" th:if="${owner.user !=null}">
+                <td th:text="${owner.user.firstname}"></td>
+                <td th:text="${owner.user.lastname}"></td>
+                <td th:text="${owner.user.email}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'owner/' + ${owner.id}}"> Details </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(owners)}">
+        No owners found!
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <h3>User Registration</h3>
+    <form th:action="@{/saveUser}" method="post" th:object="${user}">
+        <div class="form-group row">
+            <label for="username"> User Name</label>
+            <input type="text" class="form-control" th:field="*{username}" id="username"/>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</span>
+        </div>
+        <div class="form-group row">
+            <label for="firstname"> First Name</label>
+            <input type="text" class="form-control"  th:field="*{firstname}" id="firstname"/>
+            <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Error</span>
+        </div>
+        <div class="form-group row">
+            <label for="lastname"> Last Name</label>
+            <input type="text" class="form-control"  th:field="*{lastname}" id="lastname"/>
+            <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Error</span>
+        </div>
+        <div class="form-group row">
+            <label for="email"> Email</label>
+            <input type="text" class="form-control"  th:field="*{email}" id="email"/>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</span>
+        </div>
+        <div class="form-group row">
+            <label for="password"> Password </label>
+            <input type="password" class="form-control"  id="password" th:field="*{password}"/>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</span>
+        </div>
+        <div class="form-group row">
+            <input type="checkbox" id="requestOwnerRole" name="requestOwnerRole" value="true" />
+            <label for="requestOwnerRole">I want to be an owner too</label>
+        </div>
+
+        <div><input type="submit" class="btn btn-primary" value="Sign Up"/></div>
+    </form>
+    <div th:text="${'msg'}"></div>
+</div>
+</body>
+</html>

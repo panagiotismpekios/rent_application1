@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent applications</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(rentApplications)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Property </th>
+                <th> Address </th>
+                <th> Renter </th>
+                <th> Status </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rentApplication: ${rentApplications}">
+                <td th:text="${rentApplication.property.typeOfProperty}"></td>
+                <td th:text="${rentApplication.property.property_profile.address}"></td>
+                <td th:text="${rentApplication.renter.user.firstname} + ' ' +${rentApplication.renter.user.lastname} +
+                             '   ' + ${rentApplication.renter.user.email}"></td>
+                <td th:text="${rentApplication.status}"></td>
+                <td>
+                    <a class="btn-outline-primary" th:href="@{'rent-applications/change-status/' + ${rentApplication.id}}"> Edit </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(rentApplications)}">
+        No applications found!
+    </div>
+</div>
+</body>
+</html>

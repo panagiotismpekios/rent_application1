@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for Property</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+<div th:if="${property}">
+        <!-- Μήνυμα Επιτυχίας -->
+        <div th:if="${message}" class="alert alert-success" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <!-- Μήνυμα Σφάλματος -->
+        <div th:if="${error}" class="alert alert-danger" role="alert">
+            <span th:text="${error}"></span>
+        </div>
+
+        <div>
+        <h3>Property Details</h3>
+        <p><strong>Type:</strong> <span th:text="${property.typeOfProperty}"></span></p>
+        <p><strong>Address:</strong> <span th:text="${property.property_profile.address}"></span></p>
+        <p><strong>Cost:</strong> <span th:text="${property.property_profile.cost}"></span> euros</p>
+    </div>
+
+    <div>
+        <h3>Your Details</h3>
+        <p><strong>Name:</strong> <span th:text="${renter.user.firstname}+${renter.user.lastname}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${renter.user.email}"></span></p>
+    </div>
+    <form th:action="@{'/property/'+ ${property.id} + '/apply'}" method="post">
+        <input type="hidden" th:value="${renter.id}" name="renterId" />
+        <button type="submit" class="btn btn-primary">Apply for Property</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

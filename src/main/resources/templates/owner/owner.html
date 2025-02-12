@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${owner}">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${owner.user.firstname + ' ' + owner.user.lastname}"></h4>
+                <p sec:authorize="hasRole('ROLE_ADMIN')" class="card-text" th:text="'Owner id is: '+ ${owner.id}"></p>
+                <p class="card-text" th:text="'Owner username is: '+ ${owner.user.username}"></p>
+                <p class="card-text" th:text="'Owner email is: '+ ${owner.user.email}"></p>
+                <p sec:authorize="hasRole('ROLE_ADMIN')" class="card-text" th:text="'Owner roles are: '+ ${owner.user.roles}"></p>
+                <ul>
+                    <a th:text="'Owner properties: '" style="font-weight: bold"></a>
+                    <li th:if="${owner.properties != null and not #lists.isEmpty(owner.properties)}"
+                        th:each="property: ${owner.properties}">
+                        <a th:href="@{/property/{id}(id=${property.id})}" th:text="'Property with id: ' + ${property.property_profile.id}"
+                           style="color: black"></a>
+                    </li>
+                    <li th:if="${owner.properties ==null or #lists.isEmpty(owner.properties)}">
+                        Owner has no property!
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

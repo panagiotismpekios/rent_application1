@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add new property</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <form th:action="@{/property/new}" method="post" th:object="${property}" >
+        <div>
+            <label for="typeOfProperty">Type of Property:</label>
+            <select id="typeOfProperty" name="typeOfProperty" th:field="*{typeOfProperty}">
+                <option th:each="type : ${typeOfProperty}" th:value="${type}" th:text="${type}"></option>
+            </select>
+            <div>
+                <label for="address">Address:</label>
+                <input type="text" id="address" th:field="*{property_profile.address}" />
+                <span th:if="${#fields.hasErrors('property_profile.address')}" th:errors="*{property_profile.address}">Error</span>
+            </div>
+            <div>
+                <label for="location">Location:</label>
+                <input type="text" id="location" th:field="*{property_profile.location}" />
+                <span th:if="${#fields.hasErrors('property_profile.location')}" th:errors="*{property_profile.location  }">Error</span>
+            </div>
+            <div>
+                <label for="square_meters">Square meters:</label>
+                <input type="number" id="square_meters" th:field="*{property_profile.square_meters}" />
+                <span th:if="${#fields.hasErrors('property_profile.square_meters')}" th:errors="*{property_profile.square_meters}">Error</span>
+            </div>
+            <div>
+                <label for="bedrooms">Bedrooms:</label>
+                <input type="number" id="bedrooms" th:field="*{property_profile.bedrooms}" />
+                <span th:if="${#fields.hasErrors('property_profile.bedrooms')}" th:errors="*{property_profile.bedrooms}">Error</span>
+            </div>
+            <div>
+                <label for="floor">Floor:</label>
+                <input type="number" id="floor" th:field="*{property_profile.floor}" />
+                <span th:if="${#fields.hasErrors('property_profile.floor')}" th:errors="*{property_profile.floor}">Error</span>
+            </div>
+            <div>
+                <label for="parking">Parking:</label>
+                <input type="checkbox" id="parking"th:field="*{property_profile.parking}" />
+            </div>
+            <div>
+                <label for="year_of_construct">Year Of Construct:</label>
+                <input type="number" id="year_of_construct"  th:field="*{property_profile.year_of_construct}" />
+                <span th:if="${#fields.hasErrors('property_profile.year_of_construct')}" th:errors="*{property_profile.year_of_construct}">Error</span>
+            </div>
+            <div>
+                <label for="cost">Cost:</label>
+                <input type="number" id="cost" th:field="*{property_profile.cost}" />
+                <span th:if="${#fields.hasErrors('property_profile.cost')}" th:errors="*{property_profile.cost}">Error</span>
+            </div>
+            <input type="hidden" th:value="${owner.id}" name="ownerId" />
+            <button class="btn btn-primary" type="submit">Save Property</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
