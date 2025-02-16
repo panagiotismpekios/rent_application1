@@ -11,7 +11,7 @@
 <body>
 <div layout:fragment="main-content">
     <div th:if="${ not#lists.isEmpty(rentApplications)}">
-        <table class="table">
+        <table class="table mt-5">
             <thead>
             <tr>
                 <th> Property </th>
@@ -34,7 +34,7 @@
             </tbody>
         </table>
     </div>
-    <div th:if="${ #lists.isEmpty(rentApplications)}">
+    <div th:if="${ #lists.isEmpty(rentApplications)}" style="margin-top: 6rem">
         No applications found!
     </div>
 </div>
