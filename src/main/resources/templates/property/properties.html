@@ -35,21 +35,18 @@
     </style>
 </head>
 <body>
-<div layout:fragment="main-content" class="container mt-4">
+<div layout:fragment="main-content" class="container mt-5">
     <a sec:authorize="hasRole('OWNER')" href="/property/new" class="btn btn-primary" role="button">Add new Property</a>
     <div class="row">
-        <!-- Sidebar για το φίλτρο -->
-        <div class="col-md-5 filter-container ml-0"> <!-- Αυξήσαμε το πλάτος σε col-md-4 -->
+        <div class="col-md-5 filter-container ml-0">
             <form th:action="@{'property'}" method="get">
                 <h5>Filters</h5>
 
-                <!-- Πρώτη σειρά: Location -->
                 <div class="mb-3">
                     <label for="location">Location:</label>
                     <input type="text" id="location" name="location" class="form-control" th:value="${searchFilter.location}">
                 </div>
 
-                <!-- Δεύτερη σειρά: Minimum cost και Maximum cost -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="minCost">Minimum cost:</label>
@@ -61,7 +58,6 @@
                     </div>
                 </div>
 
-                <!-- Τρίτη σειρά: Type of property -->
                 <div class="mb-3">
                     <label for="typeOfProperty">Type of property:</label>
                     <select id="typeOfProperty" name="typeOfProperty" class="form-control">
@@ -70,7 +66,6 @@
                     </select>
                 </div>
 
-                <!-- Τέταρτη σειρά: Min Square Meters και Max Square Meters -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="minSquare_Meters">Min Square Meters:</label>
@@ -82,7 +77,6 @@
                     </div>
                 </div>
 
-                <!-- Πέμπτη σειρά: Bedrooms και Parking -->
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="bedrooms">Bedrooms:</label>
@@ -98,13 +92,11 @@
                     </div>
                 </div>
 
-                <!-- Κουμπί υποβολής -->
                 <button type="submit" class="btn btn-primary w-100">Apply filters</button>
             </form>
         </div>
 
-        <!-- Property Listings -->
-        <div class="col-md-6"> <!-- Αυξήσαμε το πλάτος της λίστας με τα properties -->
+        <div class="col-md-6">
             <div th:if="${ not #lists.isEmpty(properties)}">
                 <table class="table">
                     <thead>
@@ -125,7 +117,7 @@
                     </tbody>
                 </table>
             </div>
-            <div th:if="${ #lists.isEmpty(properties)}">
+            <div th:if="${ #lists.isEmpty(properties)}" style="margin-top: 6rem">
                 <p class="alert alert-warning">No Properties found!</p>
             </div>
         </div>
