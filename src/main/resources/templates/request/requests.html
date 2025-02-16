@@ -10,7 +10,7 @@
 <body>
 <div layout:fragment="main-content">
     <div th:if="${ not#lists.isEmpty(verificationRequests)}">
-        <table class="table">
+        <table class="table mt-5">
             <thead>
             <tr>
                 <th> Type Of Request</th>
@@ -31,7 +31,7 @@
             </tbody>
         </table>
     </div>
-    <div th:if="${ #lists.isEmpty(verificationRequests)}">
+    <div th:if="${ #lists.isEmpty(verificationRequests)}" style="margin-top: 6rem">
         No Requests found!
     </div>
 </div>
