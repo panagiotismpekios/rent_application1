@@ -9,7 +9,7 @@
     <title>Add new property</title>
 </head>
 <body>
-<div layout:fragment="main-content">
+<div layout:fragment="main-content" class="mt-5">
     <form th:action="@{/property/new}" method="post" th:object="${property}" >
         <div>
             <label for="typeOfProperty">Type of Property:</label>
